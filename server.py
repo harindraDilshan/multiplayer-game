@@ -15,22 +15,37 @@ except socket.error as e:
 server.listen(2)
 print("Waiting For a Connection, Server Started")
 
-def threaded_client(client):
-    client.send(str.encode("Connected"))
+def read_pos(str):
+    str = str.split(",")
+    return int(str[0]), int(str[1])
+
+
+def make_pos(tup):
+    return str(tup[0]) + "," + str(tup[1])
+
+
+pos = [(0,0),(100,100)] # Player 1 staring pos and player 2 starting pos
+def threaded_client(client, clientId):
+    client.send(str.encode(f"{pos[clientId]}"))
     replay = ""
     while True:
         try:
-            data = client.recv(2048)
-            replay = data.decode("utf-8")
+            data = read_pos(client.recv(2048).decode())
+            pos[clientId] = data
 
             if not data:
                 print("Disconnected")
                 break
             else:
-                print("Recevied : ", replay)
+                if clientId == 1:
+                    replay = pos[0]
+                else:
+                    replay = pos[1]
+
+                print("Recevied : ", data)
                 print("Sending : ", replay)
 
-            client.sendall(str.encode(replay))
+            client.sendall(str.encode(make_pos(replay)))
 
         except:
             break
@@ -38,8 +53,11 @@ def threaded_client(client):
     print("Lost connection")
     client.close()
 
+currentPlayer = 0
 while True:
     client, addr = server.accept()
     print("Connected to : ", addr)
 
-    start_new_thread(threaded_client, (client, ))
+    start_new_thread(threaded_client, (client, currentPlayer))
+
+    currentPlayer += 1
