@@ -1,9 +1,13 @@
 import socket
 from _thread import *
 import sys
+from player import *
+import pickle
+from constants import *
+from Ball import *
 
 server_ip = "192.168.8.102"
-port = 5555
+port = 5556
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -15,37 +19,37 @@ except socket.error as e:
 server.listen(2)
 print("Waiting For a Connection, Server Started")
 
-def read_pos(str):
-    str = str.split(",")
-    return int(str[0]), int(str[1])
 
 
-def make_pos(tup):
-    return str(tup[0]) + "," + str(tup[1])
+player_1_pos = (0, int(SCREEN_HEIGHT/2))
+player_2_pos = (SCREEN_WIDTH - 50, int(SCREEN_HEIGHT/2))
 
+players = [Player(player_1_pos[0], player_1_pos[1], 50, 50, (255, 0, 0), 1), Player(player_2_pos[0], player_1_pos[1], 50, 50, (0, 255, 0), 2)] # Player 1 staring pos and player 2 starting pos
+b = Ball(0, 0, 5, (0, 0, 255))
 
-pos = [(0,0),(100,100)] # Player 1 staring pos and player 2 starting pos
-def threaded_client(client, clientId):
-    client.send(str.encode(f"{pos[clientId]}"))
-    replay = ""
+def threaded_client(client, playerId):
+    client.send(pickle.dumps(players[playerId]))
+    replay = ()
     while True:
         try:
-            data = read_pos(client.recv(2048).decode())
-            pos[clientId] = data
+            data = pickle.loads(client.recv(2048))
+            players[playerId] = data
 
             if not data:
                 print("Disconnected")
                 break
             else:
-                if clientId == 1:
-                    replay = pos[0]
+                if playerId == 1:
+                    replay = players[0], b
                 else:
-                    replay = pos[1]
+                    replay = players[1], b
 
                 print("Recevied : ", data)
                 print("Sending : ", replay)
 
-            client.sendall(str.encode(make_pos(replay)))
+                b.move(0.5, 0.5) # x-speed and y-speed
+
+            client.sendall(pickle.dumps(replay)) # I want to send ball object as well
 
         except:
             break
