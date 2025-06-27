@@ -47,7 +47,7 @@ def threaded_client(client, playerId):
                 print("Recevied : ", data)
                 print("Sending : ", replay)
 
-                b.move(0.5, 0.5) # x-speed and y-speed
+                # b.move(b) # x-speed and y-speed
 
             client.sendall(pickle.dumps(replay)) # I want to send ball object as well
 

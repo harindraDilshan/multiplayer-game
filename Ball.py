@@ -8,35 +8,47 @@ class Ball():
         self.y = y
         self.radius = radius
         self.color = color
-        self.ball = (x, y)
-        self.speed = SPEED
+        self.width = SCREEN_WIDTH
+        self.height = SCREEN_HEIGHT
+        # self.ball = (x, y)
+        self.speed = BALL_SPEED
+        self.ball_rect = pygame.Rect(5, 5, radius*2, radius*2)
 
     def draw(self, win):
-        pygame.draw.circle(win, self.color, self.ball, self.radius)
+        self.ball_rect = self.ball_rect.move(self.speed)
 
-    def simulateCollition(init_x, init_y, curr_x, curr_y):
-        # when collition x has value 0 <= x <= window_width 
-        # when collition y = 0 or y = window_hight
-        thita = atan(abs((init_y - curr_y)/(init_x - curr_x)))
-        print(thita)
-        pass
+        # Bounce off the walls
+        if self.ball_rect.left < 0 or self.ball_rect.right > self.width:
+            self.speed[0] = -self.speed[0]
+        if self.ball_rect.top < 0 or self.ball_rect.bottom > self.height:
+            self.speed[1] = -self.speed[1]
 
+        pygame.draw.circle(win, self.color, self.ball_rect.center, self.radius)
+        # pygame.draw.circle(win, self.color, self.ball, self.radius)
+        
 
-    def move(self, dx, dy):
-        self.x += dx
-        self.y += dy
+    # def move(self, ball):
+        # self.x += dx
+        # self.y += dy
 
-        # if self.x < 0:
-        #     self.x = 0
-        # elif self.x + self.radius > SCREEN_WIDTH:
-        #     self.x = SCREEN_WIDTH - self.radius
+        # # if self.x < 0:
+        # #     self.x = 0
+        # # elif self.x + self.radius > SCREEN_WIDTH:
+        # #     self.x = SCREEN_WIDTH - self.radius
+        
+        # # thita = atan(abs((dy)/(dx)))
+        # # print(f"<<<<<<<<< {thita} >>>>>>>>>>")
 
-        if self.y < 0:
-            self.y = 0
-        elif self.y + self.radius > SCREEN_HEIGHT:
-            self.y = SCREEN_HEIGHT - self.radius
+        # if self.y < 0:
+        #     self.y = 0
 
-        self.update()
+        # elif self.y + self.radius > SCREEN_HEIGHT:
+        #     self.y = SCREEN_HEIGHT - self.radius
+
+        # self.update()
+
+        # print("********************")
+        
 
     def update(self):
-        self.ball = (self.x, self.y)
+         self.ball = (self.x, self.y)
