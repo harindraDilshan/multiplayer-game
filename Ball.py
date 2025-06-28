@@ -12,22 +12,22 @@ class Ball():
         self.height = SCREEN_HEIGHT
         # self.ball = (x, y)
         self.speed = BALL_SPEED
-        self.ball_rect = pygame.Rect(5, 5, radius*2, radius*2)
+        self.ball_rect = pygame.Rect(5, 5, self.radius*2, self.radius*2)
 
     def draw(self, win):
-        self.ball_rect = self.ball_rect.move(self.speed)
+        # self.ball_rect = self.ball_rect.move(self.speed)
 
-        # Bounce off the walls
-        if self.ball_rect.left < 0 or self.ball_rect.right > self.width:
-            self.speed[0] = -self.speed[0]
-        if self.ball_rect.top < 0 or self.ball_rect.bottom > self.height:
-            self.speed[1] = -self.speed[1]
+        # # Bounce off the walls
+        # if self.ball_rect.left < 0 or self.ball_rect.right > self.width:
+        #     self.speed[0] = -self.speed[0]
+        # if self.ball_rect.top < 0 or self.ball_rect.bottom > self.height:
+        #     self.speed[1] = -self.speed[1]
 
         pygame.draw.circle(win, self.color, self.ball_rect.center, self.radius)
         # pygame.draw.circle(win, self.color, self.ball, self.radius)
         
 
-    # def move(self, ball):
+    def move(self, players):
         # self.x += dx
         # self.y += dy
 
@@ -47,7 +47,18 @@ class Ball():
 
         # self.update()
 
-        # print("********************")
+        # print(f"{players[0].x} ---- {players[1].x}")
+
+        self.ball_rect = self.ball_rect.move(self.speed)
+
+        # Bounce off the walls
+        if self.ball_rect.left < 0 or self.ball_rect.right > self.width:
+            self.speed[0] = -self.speed[0]
+        if self.ball_rect.top < 0 or self.ball_rect.bottom > self.height:
+            self.speed[1] = -self.speed[1]
+
+        # if players[0].x > self.ball_rect.left or players[0].y < self.ball_rect.top:
+        #     self.speed[0] = -self.speed[0]
         
 
     def update(self):
