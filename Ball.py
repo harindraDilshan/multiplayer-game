@@ -1,6 +1,7 @@
 import pygame
-from constants import *
+import constants
 from math import *
+import constants
 
 class Ball():
     def __init__(self, x, y, radius, color):
@@ -8,12 +9,12 @@ class Ball():
         self.y = y
         self.radius = radius
         self.color = color
-        self.width = SCREEN_WIDTH
-        self.height = SCREEN_HEIGHT
+        self.width = constants.SCREEN_WIDTH
+        self.height = constants.SCREEN_HEIGHT
         # self.ball = (x, y)
-        self.speed = BALL_SPEED
+        self.speed = constants.BALL_SPEED
         self.ball_rect = pygame.Rect(5, 5, self.radius*2, self.radius*2)
-
+        
     def draw(self, win):
         # self.ball_rect = self.ball_rect.move(self.speed)
 
@@ -58,9 +59,11 @@ class Ball():
             self.speed[1] = -self.speed[1]
 
         if (players[0].x < self.ball_rect.left < (players[0].x + 10) ) and (players[0].y < self.ball_rect.bottom < (players[0].y + 50)):
+            constants.PLAYER_ONE_MARKS += 1
             self.speed[0] = -self.speed[0]
 
         if (players[1].x < self.ball_rect.left < (players[1].x + 10) ) and (players[1].y < self.ball_rect.bottom < (players[1].y + 50)):
+            constants.PLAYER_TWO_MARKS += 1
             self.speed[0] = -self.speed[0]
         
         

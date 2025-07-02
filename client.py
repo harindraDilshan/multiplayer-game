@@ -10,13 +10,12 @@ win = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Client")
 
 
-
 def redrawWindow(win,player, player2, ball):
-    win.fill((0, 0, 0))
-    player.draw(win)
-    player2.draw(win)
-    ball.draw(win)
-    pygame.display.update()
+        win.fill((0, 0, 0))
+        player.draw(win)
+        player2.draw(win)
+        ball.draw(win)
+        pygame.display.update()
 
 def main():
     run = True
@@ -37,5 +36,5 @@ def main():
         redrawWindow(win, p, p2[0], p2[1])
 
 
-if __name__ == "__main__":
+def client():
     main()
