@@ -57,8 +57,12 @@ class Ball():
         if self.ball_rect.top < 0 or self.ball_rect.bottom > self.height:
             self.speed[1] = -self.speed[1]
 
-        # if players[0].x > self.ball_rect.left or players[0].y < self.ball_rect.top:
-        #     self.speed[0] = -self.speed[0]
+        if (players[0].x < self.ball_rect.left < (players[0].x + 10) ) and (players[0].y < self.ball_rect.bottom < (players[0].y + 50)):
+            self.speed[0] = -self.speed[0]
+
+        if (players[1].x < self.ball_rect.left < (players[1].x + 10) ) and (players[1].y < self.ball_rect.bottom < (players[1].y + 50)):
+            self.speed[0] = -self.speed[0]
+        
         
 
     def update(self):
