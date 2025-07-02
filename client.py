@@ -12,6 +12,7 @@ pygame.display.set_caption("Client")
 
 def redrawWindow(win,player, player2, ball):
         win.fill((0, 0, 0))
+        pygame.draw.line(win, (0, 0, 255), (constants.SCREEN_WIDTH/2, 0), (constants.SCREEN_WIDTH/2, constants.SCREEN_HEIGHT), 10)
         player.draw(win)
         player2.draw(win)
         ball.draw(win)

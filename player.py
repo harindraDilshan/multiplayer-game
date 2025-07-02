@@ -33,14 +33,14 @@ class Player():
         self.y += dy * self.speed
 
         if self.side == 2:
-            if self.x < 400:
-                self.x = 400
+            if self.x < SCREEN_WIDTH/2:
+                self.x = SCREEN_WIDTH/2
             elif self.x + self.width > SCREEN_WIDTH:
                 self.x = SCREEN_WIDTH - self.width
 
         if self.side == 1:
-            if self.x > 400 - self.width:
-                self.x = 400 - self.width
+            if self.x > SCREEN_WIDTH/2 - self.width:
+                self.x = SCREEN_WIDTH/2 - self.width
             elif self.x < 0:
                 self.x = 0
 

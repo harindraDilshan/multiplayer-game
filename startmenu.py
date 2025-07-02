@@ -59,15 +59,15 @@ def draw_difficulty_menu():
     pygame.display.flip()
 
 def run_game(difficulty):
-    print(f"Starting game with difficulty: {difficulty}")
-    if difficulty == "Easy":
-        constants.BALL_SPEED = [1, 1]
-    elif difficulty == "Normal":
-        constants.BALL_SPEED = [6, 6]
-    elif difficulty == "Hard":
-        constants.BALL_SPEED = [10, 10]
-
     if not is_port_listening(5557):
+        print(f"Starting game with difficulty: {difficulty}")
+        if difficulty == "Easy":
+            constants.BALL_SPEED = [1, 1]
+        elif difficulty == "Normal":
+            constants.BALL_SPEED = [6, 6]
+        elif difficulty == "Hard":
+            constants.BALL_SPEED = [10, 10]
+
         threading.Thread(target=server, daemon=True).start()
     client()
 
@@ -97,8 +97,11 @@ def main():
                 pygame.quit()
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if button_rect_start.collidepoint(event.pos):
-                    difficulty_menu_loop()
+                if button_rect_start.collidepoint(event.pos): 
+                    if not is_port_listening(5557):
+                        difficulty_menu_loop()
+                    else:
+                        run_game("")
                 elif button_rect_exit.collidepoint(event.pos):
                     pygame.quit()
                     sys.exit()
