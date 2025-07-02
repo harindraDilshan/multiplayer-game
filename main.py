@@ -13,12 +13,12 @@ def is_port_listening(port):
         return False
 
 def run_server():
-    print("🚀 Starting server...")
+    print("Starting server...")
     subprocess.run(["uv", "run", "server.py"])
 
 def run_client():
-    print("🎮 Starting client...")
-    time.sleep(2)  # wait to ensure server is up
+    print("Starting client...")
+    time.sleep(2)
     subprocess.run(["uv", "run", "client.py"])
 
 if __name__ == "__main__":
