@@ -1,5 +1,6 @@
 import socket
 import pickle
+import constants
 # client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 # client.connect(("192.168.8.102", 5555))
 # client.send('Hello from client'.encode())
@@ -7,8 +8,8 @@ import pickle
 class Network:
     def __init__(self):
         self.client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.server = "192.168.8.102"
-        self.port = 5557
+        self.server = constants.load_settings()[0]
+        self.port = constants.load_settings()[1]
         self.addr = (self.server, self.port)
         self.p = self.connect() # playe initial position
         

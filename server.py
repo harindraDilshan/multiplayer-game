@@ -3,13 +3,13 @@ from _thread import *
 import sys
 from player import *
 import pickle
-from constants import *
+import constants
 from Ball import *
 import time
 
 def server():
-    server_ip = "192.168.8.102"
-    port = 5557
+    server_ip = constants.load_settings()[0]
+    port = constants.load_settings()[1]
 
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -22,8 +22,8 @@ def server():
     print("Waiting For a Connection, Server Started")
 
 
-    player_1_pos = (0, int(SCREEN_HEIGHT/2))
-    player_2_pos = (SCREEN_WIDTH - 50, int(SCREEN_HEIGHT/2))
+    player_1_pos = (0, int(constants.SCREEN_HEIGHT/2))
+    player_2_pos = (constants.SCREEN_WIDTH - 50, int(constants.SCREEN_HEIGHT/2))
 
     players = [Player(player_1_pos[0], player_1_pos[1], 10, 50, (255, 0, 0), 1), Player(player_2_pos[0], player_1_pos[1], 10, 50, (0, 255, 0), 2)] # Player 1 staring pos and player 2 starting pos
     b = Ball(100, 100, 5, (255, 0, 0))

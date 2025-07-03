@@ -5,6 +5,8 @@ import constants
 
 class Ball():
     def __init__(self, x, y, radius, color):
+        self.player_one_marks = 0
+        self.player_two_marks = 0
         self.x = x
         self.y = y
         self.radius = radius
@@ -54,17 +56,22 @@ class Ball():
 
         # Bounce off the walls
         if self.ball_rect.left < 0 or self.ball_rect.right > self.width:
+            if self.ball_rect.right > self.width:
+                self.player_one_marks += 1
+            if self.ball_rect.left < 0:
+                self.player_two_marks += 1
             self.speed[0] = -self.speed[0]
         if self.ball_rect.top < 0 or self.ball_rect.bottom > self.height:
             self.speed[1] = -self.speed[1]
 
-        if (players[0].x < self.ball_rect.left < (players[0].x + 10) ) and (players[0].y < self.ball_rect.bottom < (players[0].y + 50)):
-            constants.PLAYER_ONE_MARKS += 1
+        if (self.speed[0] < 0) and (players[0].x < self.ball_rect.left < (players[0].x + 10) ) and (players[0].y < self.ball_rect.top < (players[0].y + 50)):
             self.speed[0] = -self.speed[0]
 
-        if (players[1].x < self.ball_rect.left < (players[1].x + 10) ) and (players[1].y < self.ball_rect.bottom < (players[1].y + 50)):
-            constants.PLAYER_TWO_MARKS += 1
+        if (self.speed[0] > 0) and (players[1].x < self.ball_rect.left < (players[1].x + 10) ) and (players[1].y < self.ball_rect.top < (players[1].y + 50)):
             self.speed[0] = -self.speed[0]
+
+    def get_marks(self):
+        return (self.player_one_marks, self.player_two_marks)
         
         
 
