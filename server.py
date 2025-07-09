@@ -7,7 +7,7 @@ from constants import *
 from Ball import *
 import time
 
-server_ip = "192.168.8.102"
+server_ip = "" # Server IP
 port = 5557
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
