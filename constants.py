@@ -7,7 +7,7 @@ PLAYER_ONE_MARKS = 0
 PLAYER_TWO_MARKS = 0
 
 def load_settings():
-    ip = "192.168.8.102"  # default fallback
+    ip = "" # Server IP  # default fallback
     port = 5557       # default fallback
     player_name = "Jhone"
     try:
