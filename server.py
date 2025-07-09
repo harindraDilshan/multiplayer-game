@@ -6,7 +6,7 @@ import pickle
 from constants import *
 from Ball import *
 
-server_ip = "192.168.8.102"
+server_ip = "" # Server IP
 port = 5556
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
